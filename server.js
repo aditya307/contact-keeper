@@ -5,14 +5,17 @@ require('dotenv').config();
 const connectDB = require('./db');
 const auth = require('./routes/auth');
 const users = require('./routes/users');
+const cookieParser = require('cookie-parser');
 const contacts = require('./routes/contacts');
 const googleauth = require('./routes/googleauth');
+const fbauth = require('./routes/fbauth');
 const passport = require('passport');
 
 require('./passport');
 connectDB();
 const app = express();
 app.use(bodyPraser.json());
+app.use(cookieParser());
 
 app.use(passport.initialize());
 app.use(passport.session());

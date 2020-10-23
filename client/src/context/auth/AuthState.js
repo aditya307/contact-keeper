@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
 import AuthContext from './authContext';
+import Cookies from 'js-cookie';
 import authReducer from './authReducer';
 import {
   REGISTER_FAIL,
@@ -15,8 +16,46 @@ import {
 import setAuthToken from '../../utils/setAuthToken';
 
 const AuthState = (props) => {
+  const loadUser = async () => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+      // console.log('dsfsfsdfsfsf d sfdf');
+      // console.log(localStorage.token);
+    }
+    const jwt = Cookies.get('jwt');
+    if (typeof jwt !== 'undefined') {
+      setAuthToken(jwt);
+      console.log(jwt);
+      console.log('Google auth');
+    }
+    try {
+      const res = await axios.get('/api/auth');
+      // console.log(res);
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
+
+  const jwt = Cookies.get('jwt');
+  let auth_Token = '';
+  if (typeof jwt !== 'undefined') {
+    auth_Token = jwt;
+    console.log(jwt);
+    console.log('Google auth');
+    loadUser();
+  } else {
+    auth_Token = localStorage.getItem('token');
+    console.log('native authentication');
+    console.log(localStorage.getItem('token'));
+  }
+  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+  console.log(auth_Token);
   const initialState = {
-    token: localStorage.getItem('token'),
+    token: auth_Token,
     isAuthenticated: null,
     loading: true,
     user: null,
@@ -49,23 +88,7 @@ const AuthState = (props) => {
   //Clear Errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
   // Load User
-  const loadUser = async () => {
-    if (localStorage.token) {
-      setAuthToken(localStorage.token);
-      // console.log('dsfsfsdfsfsf d sfdf');
-      // console.log(localStorage.token);
-    }
-    try {
-      const res = await axios.get('/api/auth');
-      // console.log(res);
-      dispatch({
-        type: USER_LOADED,
-        payload: res.data,
-      });
-    } catch (err) {
-      dispatch({ type: AUTH_ERROR });
-    }
-  };
+
   const login = async (FormData) => {
     const config = {
       headers: {

@@ -8,6 +8,7 @@ import {
   LOGOUT,
   CLEAR_ERRORS,
 } from '../types';
+import Cookies from 'js-cookie';
 
 export default (state, action) => {
   switch (action.type) {
@@ -36,11 +37,14 @@ export default (state, action) => {
     case LOGIN_FAIL:
     case LOGOUT:
       localStorage.removeItem('token');
+      Cookies.remove('jwt');
+      Cookies.remove('user');
       return {
         ...state,
         token: null,
         isAuthenticated: false,
         loading: false,
+
         user: null,
         error: action.payload,
       };

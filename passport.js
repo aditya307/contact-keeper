@@ -13,12 +13,12 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       console.log(profile);
       const newUser = {
-        googleId: profile.id,
-        displayName: profile.displayName,
-        FirstName: profile.name.givenName,
-        LastName: profile.name.familyName,
+        // googleId: profile.id,
+        name: profile.displayName,
+        // FirstName: profile.name.givenName,
+        // LastName: profile.name.familyName,
         email: profile.emails[0].value,
-        image: profile.photos[0].value,
+        // image: profile.photos[0].value,
       };
       try {
         let user = await GoogleUser.findOne({ googleId: profile.id });

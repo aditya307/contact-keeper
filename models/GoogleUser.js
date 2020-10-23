@@ -4,26 +4,26 @@ const Schema = mongoose.Schema;
 const GUserSchema = new Schema({
   googleId: {
     type: String,
-    required: true,
+    // required: true,
   },
-  displayName: {
+  name: {
     type: String,
-    required: true,
+    // required: true,
   },
   FirstName: {
     type: String,
-    required: true,
+    // required: true,
   },
   LastName: {
     type: String,
-    required: true,
+    // required: true,
   },
   image: {
     type: String,
   },
   email: {
     type: String,
-    required: true,
+    // required: true,
   },
   CreatedAt: {
     type: Date,

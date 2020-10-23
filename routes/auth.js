@@ -4,11 +4,20 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const GUser = require('../models/GoogleUser');
 const auth = require('../middleware/auth');
 
 router.get('/', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
+    let user = {};
+    user = await User.findById(req.user.id);
+    // console.log('MAIN ROUTE USER ^^^^^^^^^^^^^^^^^^^^^^^^^^^6');
+    // console.log(user);
+    // console.log(user === null);
+    if (user === null) {
+      user = await GUser.findById(req.user._id);
+      console.log(user);
+    }
     return res.status(200).json({
       success: true,
       data: user,

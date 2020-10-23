@@ -12,6 +12,7 @@ const Navbar = ({ title, icon }) => {
   const onLogout = () => {
     logout();
     clearContacts();
+    window.location.href = '/';
   };
   const authLinks = (
     <Fragment>

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+// const multer = require('multer');
 const jwt = require('jsonwebtoken');
 // const secretKey = 'secretKey';
 const bcrypt = require('bcryptjs');
@@ -82,5 +83,30 @@ router.post(
     }
   }
 );
+// upload AVATAR
+// const upload = multer({
+//   limits: {
+//     fileSize: 1000000000,
+//   },
+// });
+
+// router.post('/avatar', auth, upload.single('avatar'), async (req, res) => {
+//   const { avatar } = req.body;
+//   try {
+//     const profile = User({ avatar });
+//     await profile.save();
+
+//     return res.status(200).json({
+//       success: true,
+//       data: profile,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(404).json({
+//       success: false,
+//       err: 'Server Error',
+//     });
+//   }
+// });
 
 module.exports = router;

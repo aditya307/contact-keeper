@@ -20,15 +20,12 @@ router.get(
       if (err) {
         throw err;
       }
-      // res.json({ token });
+      res.cookie('jwt', token);
+      res.cookie('user', user);
+      // console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$44');
+      // console.log(user);
       // console.log(token);
-      // return res.status(200).json({
-      //   success: true,
-      //   data: user,
-      //   token: token,
-      // });
-      res.cookie('token', token);
-      // res.redirect('/');
+      return res.redirect('/');
     });
   }
 );

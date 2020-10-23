@@ -11,6 +11,10 @@ module.exports = (req, res, next) => {
     const decoded = jwt.verify(token, 'secretkey');
 
     req.user = decoded.user;
+    // console.log(
+    //   'auth middleware user %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5'
+    // );
+    // console.log(decoded.user);
 
     next();
   } catch (err) {

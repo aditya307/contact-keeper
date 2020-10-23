@@ -37,7 +37,7 @@ const Login = (props) => {
   };
   const handleGoogleAuth = (e) => {
     e.preventDefault();
-    // props.history.push('/login/google');
+    window.location.href = '/login/google';
   };
   return (
     <div className='form-container'>
@@ -70,16 +70,15 @@ const Login = (props) => {
           value='Login'
           className='btn btn-primary btn-block'
         />
-        {/* <a href='/login/google'>
-          <button
-            onClick={handleGoogleAuth}
-            // value='Google'
-            className='btn btn-primary btn-block'
-          >
-            {' '}
-            Google
-          </button>
-        </a> */}
+        <button
+          onClick={handleGoogleAuth}
+          // value='Google'
+          className='btn btn-primary btn-block'
+        >
+          {' '}
+          Google
+        </button>
+        <i className='fa fa-google ' />
       </form>
     </div>
   );
